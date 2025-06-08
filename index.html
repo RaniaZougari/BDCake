@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gâteau d'Anniversaire pour mon ####</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <h1>Joyeux Anniversaire mon ##### ❤️!</h1>
+        
+        <div class="cake-container">
+            <div class="cake">
+                <div class="plate"></div>
+                
+                <!-- Étages du gâteau -->
+                <div class="layer layer-bottom"></div>
+                <div class="layer layer-middle"></div>
+                <div class="layer layer-top"></div>
+                
+                <!-- Nappants qui coulent -->
+                <div class="icing icing-bottom">
+                    <div class="drip-container">
+                    </div>
+                </div>
+                <div class="icing icing-middle">
+                    <div class="drip-container">
+                        <div class="drip drip-5"></div>
+                        <div class="drip drip-6"></div>
+                        <div class="drip drip-7"></div>
+                        <div class="drip drip-8"></div>
+                    </div>
+                </div>
+                <div class="icing icing-top"></div>
+                
+                <!-- Bougies sur chaque étage -->
+                <div class="candles-bottom" id="candles-bottom"></div>
+                <div class="candles-middle" id="candles-middle"></div>
+                <div class="candles-top" id="candles-top"></div>
+            </div>
+        </div>
+        
+        <div class="controls">
+            <button id="add-candle">Ajouter une bougie</button>
+            <button id="start-mic">Souffler les bougies</button>
+            <div class="mic-status">
+                <div id="volume-meter"></div>
+                <p id="mic-message">Prêt à souffler</p>
+            </div>
+        </div>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html> 

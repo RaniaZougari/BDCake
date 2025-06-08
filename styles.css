@@ -1,0 +1,542 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #5d7aff 0%, #a147fb 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+.container {
+    text-align: center;
+    max-width: 900px;
+    padding: 20px;
+    opacity: 0;
+    animation: fadeIn 1s ease forwards 0.5s;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+h1 {
+    margin-bottom: 30px;
+    color: #fff;
+    font-size: 3em;
+    font-weight: 700;
+    text-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    opacity: 0;
+    animation: titleAppear 1.5s ease forwards 4s;
+    background: linear-gradient(45deg, #ffc76b, #ffed4e, #bcfee9);
+    background-size: 200% 200%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: titleAppear 1.5s ease forwards 4s, gradientShift 3s ease-in-out infinite;
+}
+
+@keyframes titleAppear {
+    0% {
+        transform: translateY(-50px) rotateX(90deg);
+        opacity: 0;
+    }
+    60% {
+        transform: translateY(10px) rotateX(-10deg);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(0) rotateX(0deg);
+        opacity: 1;
+    }
+}
+
+@keyframes gradientShift {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+}
+
+.cake-container {
+    margin: 40px auto;
+    position: relative;
+    height: 450px;
+    perspective: 1200px;
+}
+
+.cake {
+    position: relative;
+    width: 350px;
+    height: 350px;
+    margin: 0 auto;
+    transform-style: preserve-3d;
+}
+
+.plate {
+    position: absolute;
+    width: 400px;
+    height: 20px;
+    bottom: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 50%;
+    background: linear-gradient(45deg, #e0e0e0, #f5f5f5);
+    box-shadow: 
+        0 8px 16px rgba(0, 0, 0, 0.3),
+        inset 0 2px 4px rgba(255, 255, 255, 0.8);
+}
+
+.layer {
+    position: absolute;
+    left: 50%;
+    border-radius: 12px;
+    box-shadow: 
+        0 8px 20px rgba(0, 0, 0, 0.3),
+        inset 0 2px 8px rgba(255, 255, 255, 0.2);
+    opacity: 0;
+    overflow: visible;
+}
+
+.layer-bottom {
+    width: 320px;
+    height: 80px;
+    bottom: 0;
+    z-index: 1;
+    background: linear-gradient(45deg, #f9c56a, #ffd93d);
+    transform: translateX(-50%) translateY(-400px);
+    animation: dropLayerBottom 2s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards 0.8s;
+}
+
+.layer-middle {
+    width: 280px;
+    height: 70px;
+    bottom: 80px;
+    z-index: 2;
+    background: linear-gradient(45deg, #ff9a9e, #fecfef);
+    transform: translateX(-50%) translateY(-450px);
+    animation: dropLayerMiddle 2s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards 1.6s;
+}
+
+.layer-top {
+    width: 240px;
+    height: 60px;
+    bottom: 150px;
+    z-index: 3;
+    background: linear-gradient(45deg, #a8edea, #fed6e3);
+    transform: translateX(-50%) translateY(-500px);
+    animation: dropLayerTop 2s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards 2.4s;
+}
+
+/* Chute + 3 rebonds décroissants : 
+   - 0%→40% : chute libre (de -400px à 0)  
+   - 40%→60% : rebond à 30px au-dessus  
+   - 60%→80% : retombe au sol  
+   - 80%→90% : petit rebond à 10px  
+   - 90%→100% : repos au sol  
+*/
+@keyframes dropLayerBottom {
+    0%   { transform: translateX(-50%) translateY(-400px); opacity: 0; }
+    40%  { transform: translateX(-50%) translateY(0);     opacity: 1; animation-timing-function: ease-out; }
+    60%  { transform: translateX(-50%) translateY(-30px);                              }
+    80%  { transform: translateX(-50%) translateY(0);                                   }
+    90%  { transform: translateX(-50%) translateY(-10px);                              }
+    100% { transform: translateX(-50%) translateY(0);                                   }
+    100% {
+        transform: translateX(-50%) translateY(0);
+        opacity: 1;       /* ← important */
+      }
+  }
+  
+  /* Même principe pour les autres couches, en adaptant :
+     - point de contact (40%) à translateY(0)
+     - amplitudes de rebonds décroissantes (25px/8px pour la couche du milieu, 20px/6px pour la couche du haut) */
+  @keyframes dropLayerMiddle {
+    0%   { transform: translateX(-50%) translateY(-450px); opacity: 0; }
+    40%  { transform: translateX(-50%) translateY(0);     opacity: 1; ease-out; }
+    60%  { transform: translateX(-50%) translateY(-25px);       }
+    80%  { transform: translateX(-50%) translateY(0);           }
+    90%  { transform: translateX(-50%) translateY(-8px);        }
+    100% { transform: translateX(-50%) translateY(0);           }
+    100% {
+        transform: translateX(-50%) translateY(0);
+        opacity: 1;       /* ← important */
+      }
+  }
+  
+  @keyframes dropLayerTop {
+    0%   { transform: translateX(-50%) translateY(-500px); opacity: 0; }
+    40%  { transform: translateX(-50%) translateY(0);     opacity: 1; ease-out; }
+    60%  { transform: translateX(-50%) translateY(-20px);       }
+    80%  { transform: translateX(-50%) translateY(0);           }
+    90%  { transform: translateX(-50%) translateY(-6px);        }
+    100% { transform: translateX(-50%) translateY(0);           }
+    100% {
+        transform: translateX(-50%) translateY(0);
+        opacity: 1;       /* ← important */
+      }
+  }
+  
+  /* N’oublie pas d’ajuster tes durées et tes delays : */
+  .layer-bottom { animation: dropLayerBottom 2s ease forwards 0.8s; }
+  .layer-middle { animation: dropLayerMiddle 2s ease forwards 1.6s; }
+  .layer-top    { animation: dropLayerTop    2s ease forwards 2.4s; }
+  
+
+/* Nappant qui coule */
+.icing {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 4;
+    opacity: 0;
+}
+
+.icing::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -10px;
+    width: 100%;
+    height: 15px;
+    background-repeat: repeat-x;
+    background-size: 50px 15px;
+    transform: rotate(180deg);
+    z-index: 5;
+}
+
+.icing-bottom {
+    position: absolute;
+    width: 320px;
+    height: 0;
+    bottom: 80px;
+    background: linear-gradient(0, #ff6b6b, #ff8e8e);
+    border-radius: 12px 12px 0 0;
+    animation: icingPour1 1.5s ease-out forwards 3.2s;
+    overflow: visible;
+    top: 260px;
+}
+
+.icing-middle {
+    position: absolute;
+    width: 280px;
+    height: 0;
+    bottom: 150px;
+    background: linear-gradient(0, #ffd93d, #ffed4e);
+    border-radius: 12px 12px 0 0;
+    animation: icingPour2 1.5s ease-out forwards 4.0s;
+    top: 200px;
+}
+
+.icing-top {
+    position: absolute;
+    width: 240px;
+    height: 0;
+    bottom: 210px;
+    background: linear-gradient(0, #6bcf7f, #8ee5a3);
+    border-radius: 12px 12px 0 0;
+    animation: icingPour3 1.5s ease-out forwards 4.8s;
+    top: 140px;
+}
+
+@keyframes icingPour1 {
+    0% {
+        height: 0;
+        opacity: 0;
+    }
+    20% {
+        height: 25px;
+        opacity: 1;
+    }
+    100% {
+        height: 25px;
+        opacity: 1;
+    }
+}
+
+@keyframes icingPour2 {
+    0% {
+        height: 0;
+        opacity: 0;
+    }
+    20% {
+        height: 20px;
+        opacity: 1;
+    }
+    100% {
+        height: 20px;
+        opacity: 1;
+    }
+}
+
+@keyframes icingPour3 {
+    0% {
+        height: 0;
+        opacity: 0;
+    }
+    20% {
+        height: 15px;
+        opacity: 1;
+    }
+    100% {
+        height: 15px;
+        opacity: 1;
+    }
+}
+
+.icing-bottom::after {
+    background-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 50 15" xmlns="http://www.w3.org/2000/svg"><path d="M0 5 Q 12.5 -5, 25 5 T 50 5 V 15 H 0 Z" fill="%23ff6b6b"/></svg>');
+}
+
+.icing-middle::after {
+    background-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 50 15" xmlns="http://www.w3.org/2000/svg"><path d="M0 5 Q 12.5 -5, 25 5 T 50 5 V 15 H 0 Z" fill="%23ffd93d"/></svg>');
+}
+
+.icing-top::after {
+    background-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 50 15" xmlns="http://www.w3.org/2000/svg"><path d="M0 5 Q 12.5 -5, 25 5 T 50 5 V 15 H 0 Z" fill="%236bcf7f"/></svg>');
+}
+
+/* Gouttes de nappant */
+.head .drip-container {
+    position: absolute;
+    right: 0;
+    bottom: 26%;
+    width: 56px;
+    height: 50px;
+    overflow: visible;
+}
+
+@keyframes drip {
+    0% {
+        height: 0;
+        opacity: 0;
+    }
+    20% {
+        height: 15px;
+        opacity: 1;
+    }
+    100% {
+        height: 25px;
+        opacity: 1;
+    }
+}
+
+/* Bougies sur les étages */
+.candles-bottom {
+    position: absolute;
+    bottom: 90px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    z-index: 10;
+}
+
+.candles-middle {
+    position: absolute;
+    bottom: 150px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    z-index: 10;
+}
+
+.candles-top {
+    position: absolute;
+    bottom: 210px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    z-index: 10;
+}
+
+.candle {
+    width: 12px;
+    height: 45px;
+    background: linear-gradient(135deg, #ff9a9e, #fad0c4, #ffd1ff);
+    border-radius: 6px;
+    position: relative;
+    box-shadow: 
+        0 4px 8px rgba(0, 0, 0, 0.3),
+        inset 2px 0 4px rgba(255, 255, 255, 0.3),
+        inset -2px 0 4px rgba(0, 0, 0, 0.1);
+    opacity: 0;
+    transform: translateY(-60px) rotateZ(10deg);
+    animation: candleDrop 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+}
+
+@keyframes candleDrop {
+    0% {
+        transform: translateY(-60px) rotateZ(10deg);
+        opacity: 0;
+    }
+    60% {
+        transform: translateY(8px) rotateZ(-5deg);
+        opacity: 1;
+    }
+    80% {
+        transform: translateY(-3px) rotateZ(2deg);
+    }
+    100% {
+        transform: translateY(0) rotateZ(0deg);
+        opacity: 1;
+    }
+}
+
+.flame {
+    position: absolute;
+    width: 14px;
+    height: 22px;
+    background: radial-gradient(circle, #ffeb3b 10%, #ff9500 40%, #ff4d00 80%);
+    border-radius: 50% 50% 20% 20%;
+    top: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    box-shadow: 
+        0 0 15px rgba(255, 149, 0, 0.8),
+        0 0 25px rgba(255, 69, 0, 0.4);
+    animation: flicker 1.2s infinite ease-in-out alternate;
+}
+
+@keyframes flicker {
+    0% { 
+        transform: translateX(-50%) scale(1) rotateZ(-1deg);
+        box-shadow: 0 0 15px rgba(255, 149, 0, 0.8), 0 0 25px rgba(255, 69, 0, 0.4);
+    }
+    25% { 
+        transform: translateX(-52%) scale(1.05) rotateZ(1deg);
+        box-shadow: 0 0 18px rgba(255, 149, 0, 0.9), 0 0 30px rgba(255, 69, 0, 0.5);
+    }
+    50% { 
+        transform: translateX(-50%) scale(0.95) rotateZ(-0.5deg);
+        box-shadow: 0 0 12px rgba(255, 149, 0, 0.7), 0 0 20px rgba(255, 69, 0, 0.3);
+    }
+    75% { 
+        transform: translateX(-48%) scale(1.08) rotateZ(0.5deg);
+        box-shadow: 0 0 20px rgba(255, 149, 0, 1), 0 0 35px rgba(255, 69, 0, 0.6);
+    }
+    100% { 
+        transform: translateX(-50%) scale(1) rotateZ(1deg);
+        box-shadow: 0 0 15px rgba(255, 149, 0, 0.8), 0 0 25px rgba(255, 69, 0, 0.4);
+    }
+}
+
+.controls {
+    margin-top: 50px;
+    opacity: 0;
+    animation: fadeInUp 1s ease forwards 5.5s;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+button {
+    padding: 12px 24px;
+    margin: 0 15px;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+    position: relative;
+    overflow: hidden;
+}
+
+button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: left 0.5s;
+}
+
+button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+}
+
+button:hover::before {
+    left: 100%;
+}
+
+.mic-status {
+    margin-top: 25px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#volume-meter {
+    width: 250px;
+    height: 25px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 15px;
+    overflow: hidden;
+    margin-bottom: 15px;
+    position: relative;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+#volume-meter::before {
+    content: '';
+    position: absolute;
+    height: 100%;
+    width: var(--volume-width, 0%);
+    background: linear-gradient(90deg, #6bcf7f, #ffd93d, #ff6b6b);
+    border-radius: 15px;
+    transition: width 0.1s ease;
+    box-shadow: 0 0 10px rgba(107, 207, 127, 0.5);
+}
+
+#mic-message {
+    font-size: 16px;
+    color: rgba(255, 255, 255, 0.9);
+    font-weight: 500;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.candle.extinguished .flame {
+    animation: extinguish 0.6s forwards;
+}
+
+@keyframes extinguish {
+    0% {
+        opacity: 1;
+        transform: translateX(-50%) scale(1);
+        filter: hue-rotate(0deg);
+    }
+    50% {
+        opacity: 0.3;
+        transform: translateX(-50%) scale(1.3) rotateZ(20deg);
+        filter: hue-rotate(60deg);
+    }
+    100% {
+        opacity: 0;
+        transform: translateX(-50%) scale(0.1) rotateZ(90deg);
+        filter: hue-rotate(120deg);
+    }
+}
