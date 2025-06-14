@@ -231,7 +231,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
         
         setTimeout(() => {
-            micMessage.textContent = '🎉 Joyeux Anniversaire Guillaume! 🎂';
+            micMessage.textContent = '🎉 Joyeux Anniversaire #####! 🎂';
             micMessage.style.fontSize = '18px';
             micMessage.style.color = '#ffd93d';
             
