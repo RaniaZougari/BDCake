@@ -14,6 +14,154 @@ body {
     overflow-x: hidden;
 }
 
+/* Styles pour l'authentification */
+.auth-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.auth-content {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    padding: 50px;
+    border-radius: 25px;
+    text-align: center;
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
+    max-width: 450px;
+    width: 90%;
+    animation: authSlideIn 0.8s ease-out;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+@keyframes authSlideIn {
+    from {
+        transform: translateY(-100px) scale(0.8);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+    }
+}
+
+.auth-content h2 {
+    background: linear-gradient(45deg, #ff6b9d, #4ecdc4);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 30px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    font-size: 1.8em;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.auth-input {
+    width: 100%;
+    padding: 20px;
+    border: 3px solid transparent;
+    border-radius: 15px;
+    font-size: 18px;
+    font-family: 'Poppins', sans-serif;
+    margin-bottom: 25px;
+    box-sizing: border-box;
+    text-align: center;
+    background: linear-gradient(white, white) padding-box,
+                linear-gradient(45deg, #ff6b9d, #4ecdc4) border-box;
+    transition: all 0.3s ease;
+    font-weight: 500;
+}
+
+.auth-input:focus {
+    outline: none;
+    transform: scale(1.02);
+    box-shadow: 0 0 20px rgba(255, 107, 157, 0.3);
+}
+
+.auth-input::placeholder {
+    color: #999;
+    font-weight: 400;
+}
+
+.auth-button {
+    background: linear-gradient(45deg, #ff6b9d, #4ecdc4);
+    color: white;
+    border: none;
+    padding: 18px 35px;
+    border-radius: 15px;
+    font-size: 18px;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: 'Poppins', sans-serif;
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 20px rgba(255, 107, 157, 0.3);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.auth-button:hover:not(:disabled) {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 25px rgba(255, 107, 157, 0.4);
+}
+
+.auth-button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.hidden {
+    display: none !important;
+}
+
+#name-placeholder {
+    display: inline-block;
+    background: linear-gradient(45deg, #fc98ba, #8cf0e9, #caea4b);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: nameGlow 2s ease-in-out infinite alternate;
+    font-weight: 800;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+@keyframes nameGlow {
+    0% {
+        filter: brightness(1) saturate(1);
+        transform: scale(1);
+    }
+    100% {
+        filter: brightness(1.2) saturate(1.3);
+        transform: scale(1.05);
+    }
+}
+
+/* Animation de transition pour cacher l'auth */
+.auth-fade-out {
+    animation: authFadeOut 1s ease-in-out forwards;
+}
+
+@keyframes authFadeOut {
+    0% {
+        opacity: 1;
+        transform: scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+}
+
+
 .container {
     text-align: center;
     max-width: 900px;
@@ -35,7 +183,7 @@ h1 {
     text-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     opacity: 0;
     animation: titleAppear 1.5s ease forwards 4s;
-    background: linear-gradient(45deg, #ffc76b, #ffed4e, #bcfee9);
+    background: linear-gradient(45deg, #ff9a9e, #ffed4e, #bcfee9);
     background-size: 200% 200%;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -45,7 +193,7 @@ h1 {
 @keyframes titleAppear {
     0% {
         transform: translateY(-50px) rotateX(90deg);
-        opacity: 0;
+        opacity: 1;
     }
     60% {
         transform: translateY(10px) rotateX(-10deg);
@@ -132,13 +280,7 @@ h1 {
     animation: dropLayerTop 2s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards 2.4s;
 }
 
-/* Chute + 3 rebonds décroissants : 
-   - 0%→40% : chute libre (de -400px à 0)  
-   - 40%→60% : rebond à 30px au-dessus  
-   - 60%→80% : retombe au sol  
-   - 80%→90% : petit rebond à 10px  
-   - 90%→100% : repos au sol  
-*/
+
 @keyframes dropLayerBottom {
     0%   { transform: translateX(-50%) translateY(-400px); opacity: 0; }
     40%  { transform: translateX(-50%) translateY(0);     opacity: 1; animation-timing-function: ease-out; }
@@ -148,13 +290,10 @@ h1 {
     100% { transform: translateX(-50%) translateY(0);                                   }
     100% {
         transform: translateX(-50%) translateY(0);
-        opacity: 1;       /* ← important */
+        opacity: 1;       
       }
   }
-  
-  /* Même principe pour les autres couches, en adaptant :
-     - point de contact (40%) à translateY(0)
-     - amplitudes de rebonds décroissantes (25px/8px pour la couche du milieu, 20px/6px pour la couche du haut) */
+
   @keyframes dropLayerMiddle {
     0%   { transform: translateX(-50%) translateY(-450px); opacity: 0; }
     40%  { transform: translateX(-50%) translateY(0);     opacity: 1; ease-out; }
@@ -177,17 +316,16 @@ h1 {
     100% { transform: translateX(-50%) translateY(0);           }
     100% {
         transform: translateX(-50%) translateY(0);
-        opacity: 1;       /* ← important */
+        opacity: 1;      
       }
   }
   
-  /* N’oublie pas d’ajuster tes durées et tes delays : */
   .layer-bottom { animation: dropLayerBottom 2s ease forwards 0.8s; }
   .layer-middle { animation: dropLayerMiddle 2s ease forwards 1.6s; }
   .layer-top    { animation: dropLayerTop    2s ease forwards 2.4s; }
   
 
-/* Nappant qui coule */
+
 .icing {
     position: absolute;
     left: 50%;
@@ -300,7 +438,6 @@ h1 {
     background-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 50 15" xmlns="http://www.w3.org/2000/svg"><path d="M0 5 Q 12.5 -5, 25 5 T 50 5 V 15 H 0 Z" fill="%236bcf7f"/></svg>');
 }
 
-/* Gouttes de nappant */
 .head .drip-container {
     position: absolute;
     right: 0;
@@ -325,7 +462,6 @@ h1 {
     }
 }
 
-/* Bougies sur les étages */
 .candles-bottom {
     position: absolute;
     bottom: 90px;

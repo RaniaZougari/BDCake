@@ -3,13 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gâteau d'Anniversaire pour mon ####</title>
+    <title>Gâteau d'Anniversaire</title>
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="container">
-        <h1>Joyeux Anniversaire mon ##### ❤️!</h1>
+    <!-- Authentication Modal -->
+    <div class="auth-modal" id="auth-modal">
+        <div class="auth-content">
+            <h2>✨    Entrez votre petit prénom ✨</h2>
+            <input type="text" id="name-input" class="auth-input" placeholder="Tapez le prénom ici..." maxlength="20">
+            <button id="auth-button" class="auth-button" disabled>Créer le gâteau 🎂</button>
+        </div>
+    </div>
+
+    <!-- Main content - Hidden initially -->
+    <div class="container hidden" id="main-container">
+        <h1 id="main-title">Joyeux Anniversaire mon <span id="name-placeholder"></span> ❤️!</h1>
         
         <div class="cake-container">
             <div class="cake">
@@ -54,4 +64,4 @@
     
     <script src="script.js"></script>
 </body>
-</html> 
+</html>
