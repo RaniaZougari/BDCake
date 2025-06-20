@@ -296,7 +296,7 @@ h1 {
 
   @keyframes dropLayerMiddle {
     0%   { transform: translateX(-50%) translateY(-450px); opacity: 0; }
-    40%  { transform: translateX(-50%) translateY(0);     opacity: 1; ease-out; }
+    40%  { transform: translateX(-50%) translateY(0);     opacity: 1; }
     60%  { transform: translateX(-50%) translateY(-25px);       }
     80%  { transform: translateX(-50%) translateY(0);           }
     90%  { transform: translateX(-50%) translateY(-8px);        }
@@ -309,7 +309,7 @@ h1 {
   
   @keyframes dropLayerTop {
     0%   { transform: translateX(-50%) translateY(-500px); opacity: 0; }
-    40%  { transform: translateX(-50%) translateY(0);     opacity: 1; ease-out; }
+    40%  { transform: translateX(-50%) translateY(0);     opacity: 1; }
     60%  { transform: translateX(-50%) translateY(-20px);       }
     80%  { transform: translateX(-50%) translateY(0);           }
     90%  { transform: translateX(-50%) translateY(-6px);        }
