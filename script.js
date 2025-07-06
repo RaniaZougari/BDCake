@@ -75,7 +75,7 @@ function initializeAuth() {
         // Désactiver les interactions
         nameInput.disabled = true;
         authButton.disabled = true;
-        authButton.innerHTML = 'Préparation du gâteau... ✨';
+        authButton.innerHTML = 'Preparing the cake ... ✨';
         
         // Animation de sortie de l'auth
         const authModal = document.getElementById('auth-modal');
@@ -157,7 +157,7 @@ function startCakeAnimations() {
     // Marquer l'animation comme terminée
     setTimeout(() => {
         cakeAnimationCompleted = true;
-        console.log('✅ Animation du gâteau terminée');
+        console.log('✅ Finished animation');
     }, 2000);
 }
 
@@ -166,7 +166,7 @@ function revealTitle() {
     console.log(`📝 Affichage du titre pour ${userName}`);
     
     // Mettre à jour le titre de la page
-    document.title = `Joyeux Anniversaire ${userName} ! 🎂`;
+    document.title = `Happy birthday ${userName} ! 🎂`;
     
     // Mettre à jour le contenu du titre
     const mainTitle = document.getElementById('main-title');
@@ -436,7 +436,7 @@ function blowOutCandles() {
     });
     
     setTimeout(() => {
-        micMessage.textContent = `🎉 Joyeux Anniversaire ${userName} 🎂`;
+        micMessage.textContent = `🎉 Happy birthday ${userName} 🎂`;
         micMessage.style.fontSize = '18px';
         micMessage.style.color = '#ffd93d';
         createConfetti();
