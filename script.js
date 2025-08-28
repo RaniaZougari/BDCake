@@ -70,7 +70,7 @@ function initializeAuth() {
         // ÉTAPE 2: Récupération du prénom
         userName = name;
         isAuthenticated = true;
-        console.log(`✅ Prénom récupéré: ${userName}`);
+        console.log(`Name fetched: ${userName}`);
         
         // Désactiver les interactions
         nameInput.disabled = true;
@@ -228,7 +228,7 @@ function initializeCakeControls() {
 
 // Ajouter les bougies par défaut
 function addInitialCandles() {
-    console.log('🕯️ Ajout des bougies par défaut');
+    console.log('Adding candles by default');
     
     // Ajouter 3 bougies avec un délai entre chacune
     for (let i = 0; i < 3; i++) {
@@ -241,7 +241,7 @@ function addInitialCandles() {
 // Fonction pour ajouter une bougie
 function addCandle() {
     if (!cakeAnimationCompleted) {
-        console.log('⏳ Animation du gâteau en cours, bougie en attente...');
+        console.log('Animation of the candles in progress...');
         return;
     }
     
@@ -339,9 +339,9 @@ function initMicrophone() {
     try {
         navigator.mediaDevices.getUserMedia({ audio: true })
             .then((stream) => {
-                startMicBtn.textContent = 'Arrêter le micro';
+                startMicBtn.textContent = 'Stop the Mic';
                 startMicBtn.style.background = 'linear-gradient(135deg, #ff6b6b, #ff8e8e)';
-                micMessage.textContent = 'Soufflez pour éteindre les bougies!';
+                micMessage.textContent = 'Blow the candles!';
                 
                 audioContext = new (window.AudioContext || window.webkitAudioContext)();
                 analyser = audioContext.createAnalyser();
@@ -358,13 +358,13 @@ function initMicrophone() {
                 javascriptNode.onaudioprocess = processAudio;
             })
             .catch((error) => {
-                console.error('Erreur d\'accès au microphone:', error);
-                micMessage.textContent = '🙀 Erreur: impossible d\'accéder au microphone';
+                console.error('Error accessing the mic:', error);
+                micMessage.textContent = ' Error: can\'t access the mic';
                 micMessage.style.color = 'white';
             });
     } catch (error) {
-        console.error('Erreur lors de l\'initialisation du microphone:', error);
-        micMessage.textContent = 'Microphone non supporté';
+        console.error('Error while initialising the mic:', error);
+        micMessage.textContent = 'Microphone not supported';
         micMessage.style.color = '#ff6b6b';
     }
 }
@@ -378,9 +378,9 @@ function stopMicrophone() {
         audioContext.close();
         audioContext = null;
         
-        startMicBtn.textContent = 'Souffler les bougies';
+        startMicBtn.textContent = 'Blow the candles';
         startMicBtn.style.background = 'linear-gradient(135deg, #667eea, #764ba2)';
-        micMessage.textContent = 'Micro arrêté';
+        micMessage.textContent = 'Mic stopped';
         micMessage.style.color = 'rgba(255, 255, 255, 0.7)';
         volumeMeter.style.setProperty('--volume-width', '0%');
     }
