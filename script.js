@@ -1,12 +1,12 @@
-// Variables globales
+// Global variables
 let userName = '';
 let isAuthenticated = false;
 let cakeAnimationCompleted = false;
 
-// Éléments du DOM - Déclarés globalement
+// DOM elements - Declared globally
 let candlesBottom, candlesMiddle, candlesTop, addCandleBtn, startMicBtn, volumeMeter, micMessage, controls;
 
-// Variables pour l'API audio
+// Variables for audio API
 let audioContext;
 let analyser;
 let microphone;
@@ -14,13 +14,13 @@ let javascriptNode;
 let isBlowing = false;
 let blowingTimeout;
 
-// Configuration des bougies
+// Candle configuration
 let candleCount = 0;
 let totalCandles = 0;
 const maxCandlesPerLayer = 10;
 let layers = [];
 
-// ÉTAPE 1: Authentification au chargement de la page
+// STEP 1: Authentication when page loads
 document.addEventListener('DOMContentLoaded', function() {
     initializeAuth();
 });
@@ -30,12 +30,12 @@ function initializeAuth() {
     const nameInput = document.getElementById('name-input');
     const authButton = document.getElementById('auth-button');
     
-    // Focus automatique sur l'input
+    // Auto-focus on input
     setTimeout(() => {
         nameInput.focus();
     }, 500);
     
-    // Validation en temps réel
+    // Real-time validation
     nameInput.addEventListener('input', function() {
         const name = this.value.trim();
         authButton.disabled = name.length < 2;
@@ -49,14 +49,14 @@ function initializeAuth() {
         }
     });
     
-    // Validation avec Entrée
+    // Validation with Enter key
     nameInput.addEventListener('keypress', function(e) {
         if (e.key === 'Enter' && this.value.trim().length >= 2) {
             processAuthentication();
         }
     });
     
-    // Validation avec clic
+    // Validation with click
     authButton.addEventListener('click', function() {
         if (nameInput.value.trim().length >= 2) {
             processAuthentication();
@@ -67,50 +67,50 @@ function initializeAuth() {
         const name = nameInput.value.trim();
         if (name.length < 2) return;
         
-        // ÉTAPE 2: Récupération du prénom
+        // STEP 2: Get first name
         userName = name;
         isAuthenticated = true;
         console.log(`Name fetched: ${userName}`);
         
-        // Désactiver les interactions
+        // Disable interactions
         nameInput.disabled = true;
         authButton.disabled = true;
         authButton.innerHTML = 'Preparing the cake ... ✨';
         
-        // Animation de sortie de l'auth
+        // Auth exit animation
         const authModal = document.getElementById('auth-modal');
         authModal.classList.add('auth-fade-out');
         
-        // Attendre la fin de l'animation puis commencer la séquence
+        // Wait for animation to finish then start sequence
         setTimeout(() => {
-            // Cacher l'auth
+            // Hide auth
             authModal.style.display = 'none';
             
-            // ÉTAPE 3: Démarrer la séquence d'animations
+            // STEP 3: Start animation sequence
             startAnimationSequence();
             
         }, 1000);
     }
 }
 
-// ÉTAPE 3: Séquence d'animations dans l'ordre correct
+// STEP 3: Animation sequence in correct order
 function startAnimationSequence() {
-    console.log('🎬 Début de la séquence d\'animations');
+    console.log('🎬 Starting animation sequence');
     
-    // 1. Révéler le contenu principal
+    // 1. Reveal main content
     revealMainContent();
     
-    // 2. Démarrer l'animation du gâteau (2 secondes après révélation)
+    // 2. Start cake animation (2 seconds after reveal)
     setTimeout(() => {
         startCakeAnimations();
     }, 2000);
     
-    // 3. Afficher le titre avec le prénom (après animation gâteau)
+    // 3. Display title with first name (after cake animation)
     setTimeout(() => {
         revealTitle();
     }, 4000);
     
-    // 4. Initialiser les contrôles et ajouter les bougies (après le titre)
+    // 4. Initialize controls and add candles (after title)
     setTimeout(() => {
         initializeCakeControls();
         addInitialCandles();
@@ -118,25 +118,25 @@ function startAnimationSequence() {
 }
 
 function revealMainContent() {
-    console.log('📱 Révélation du contenu principal');
+    console.log('📱 Revealing main content');
     const mainContainer = document.getElementById('main-container');
     
-    // Afficher le contenu principal
+    // Show main content
     mainContainer.classList.remove('hidden');
     mainContainer.classList.add('main-entrance');
 }
 
-// ÉTAPE 4: Animation du gâteau
+// STEP 4: Cake animation
 function startCakeAnimations() {
-    console.log(`🎂 Animation du gâteau démarrée pour ${userName}!`);
+    console.log(`🎂 Cake animation started for ${userName}!`);
     cakeAnimationCompleted = false;
     
-    // Ajouter les classes d'animation au gâteau
+    // Add animation classes to cake
     const cake = document.querySelector('.cake');
     const layers = document.querySelectorAll('.layer');
     const icings = document.querySelectorAll('.icing');
     
-    // Animation d'apparition des couches du gâteau
+    // Cake layer appearance animation
     cake.classList.add('cake-entrance');
     
     layers.forEach((layer, index) => {
@@ -145,7 +145,7 @@ function startCakeAnimations() {
         }, index * 300);
     });
     
-    // Animation des nappages
+    // Icing animation
     setTimeout(() => {
         icings.forEach((icing, index) => {
             setTimeout(() => {
@@ -154,36 +154,36 @@ function startCakeAnimations() {
         });
     }, 900);
     
-    // Marquer l'animation comme terminée
+    // Mark animation as completed
     setTimeout(() => {
         cakeAnimationCompleted = true;
         console.log('✅ Finished animation');
     }, 2000);
 }
 
-// ÉTAPE 5: Révéler le titre avec le prénom
+// STEP 5: Reveal title with first name
 function revealTitle() {
-    console.log(`📝 Affichage du titre pour ${userName}`);
+    console.log(`📝 Displaying title for ${userName}`);
     
-    // Mettre à jour le titre de la page
+    // Update page title
     document.title = `Happy birthday ${userName} ! 🎂`;
     
-    // Mettre à jour le contenu du titre
+    // Update title content
     const mainTitle = document.getElementById('main-title');
     const namePlaceholder = document.getElementById('name-placeholder');
     
-    // Insérer le prénom
+    // Insert first name
     namePlaceholder.textContent = userName;
     
-    // Animation du titre
+    // Title animation
     mainTitle.classList.add('title-reveal');
 }
 
-// ÉTAPE 6: Initialiser les contrôles et ajouter les bougies
+// STEP 6: Initialize controls and add candles
 function initializeCakeControls() {
-    console.log('🕹️ Initialisation des contrôles');
+    console.log('🕹️ Initializing controls');
     
-    // Récupérer les éléments du DOM
+    // Get DOM elements
     candlesBottom = document.getElementById('candles-bottom');
     candlesMiddle = document.getElementById('candles-middle');
     candlesTop = document.getElementById('candles-top');
@@ -193,14 +193,14 @@ function initializeCakeControls() {
     micMessage = document.getElementById('mic-message');
     controls = document.querySelector('.controls');
     
-    // Configurer les couches
+    // Configure layers
     layers = [
         { container: candlesBottom, name: 'bottom', count: 0 },
         { container: candlesMiddle, name: 'middle', count: 0 },
         { container: candlesTop, name: 'top', count: 0 }
     ];
     
-    // Afficher les contrôles avec animation
+    // Show controls with animation
     controls.style.opacity = '0';
     controls.style.transform = 'translateY(30px)';
     controls.style.transition = 'all 0.8s ease';
@@ -210,7 +210,7 @@ function initializeCakeControls() {
         controls.style.transform = 'translateY(0)';
     }, 500);
     
-    // Ajouter les événements
+    // Add events
     addCandleBtn.addEventListener('click', () => {
         if (cakeAnimationCompleted) addCandle();
     });
@@ -224,13 +224,16 @@ function initializeCakeControls() {
             stopMicrophone();
         }
     });
+    
+    // Initialize volume meter to start from left
+    volumeMeter.style.setProperty('--volume-width', '0%');
 }
 
-// Ajouter les bougies par défaut
+// Add default candles
 function addInitialCandles() {
     console.log('Adding candles by default');
     
-    // Ajouter 3 bougies avec un délai entre chacune
+    // Add 3 candles with delay between each
     for (let i = 0; i < 3; i++) {
         setTimeout(() => {
             addCandle();
@@ -238,14 +241,14 @@ function addInitialCandles() {
     }
 }
 
-// Fonction pour ajouter une bougie
+// Function to add a candle
 function addCandle() {
     if (!cakeAnimationCompleted) {
         console.log('Animation of the candles in progress...');
         return;
     }
     
-    // Trouver le prochain étage disponible
+    // Find next available layer
     let targetLayer = null;
     for (let layer of layers) {
         if (layer.count < maxCandlesPerLayer) {
@@ -254,7 +257,7 @@ function addCandle() {
         }
     }
     
-    // Si tous les étages sont pleins, remplacer une bougie du premier étage
+    // If all layers are full, replace a candle from the first layer
     if (!targetLayer) {
         targetLayer = layers[0];
         const firstCandle = targetLayer.container.firstChild;
@@ -265,24 +268,24 @@ function addCandle() {
         }
     }
     
-    // Créer la bougie
+    // Create the candle
     const candle = document.createElement('div');
     candle.className = 'candle';
     candle.id = `candle-${totalCandles}`;
     
-    // Créer la flamme
+    // Create the flame
     const flame = document.createElement('div');
     flame.className = 'flame';
     
     candle.appendChild(flame);
     candle.style.animationDelay = `${totalCandles * 0.15}s`;
     
-    // Ajouter la bougie au conteneur approprié
+    // Add candle to appropriate container
     targetLayer.container.appendChild(candle);
     targetLayer.count++;
     totalCandles++;
     
-    console.log(`🕯️ Bougie ${totalCandles} ajoutée sur l'étage ${targetLayer.name}`);
+    console.log(`🕯️ Candle ${totalCandles} added to ${targetLayer.name} layer`);
     playAddCandleSound();
 }
 
@@ -313,7 +316,7 @@ function createFloatingEmoji(emoji) {
     }, 4100);
 }
 
-// Fonction pour simuler un effet sonore
+// Function to simulate a sound effect
 function playAddCandleSound() {
     if (window.AudioContext || window.webkitAudioContext) {
         const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
@@ -332,9 +335,9 @@ function playAddCandleSound() {
     }
 }
 
-// ========== FONCTIONS MICROPHONE ==========
+// ========== MICROPHONE FUNCTIONS ==========
 
-// Initialiser le microphone
+// Initialize microphone
 function initMicrophone() {
     try {
         navigator.mediaDevices.getUserMedia({ audio: true })
@@ -369,7 +372,7 @@ function initMicrophone() {
     }
 }
 
-// Arrêter le microphone
+// Stop microphone
 function stopMicrophone() {
     if (audioContext) {
         javascriptNode.disconnect();
@@ -386,7 +389,7 @@ function stopMicrophone() {
     }
 }
 
-// Traiter les données audio du microphone
+// Process microphone audio data
 function processAudio(event) {
     const bufferLength = analyser.frequencyBinCount;
     const dataArray = new Uint8Array(bufferLength);
@@ -416,12 +419,12 @@ function processAudio(event) {
     }
 }
 
-// Souffler les bougies
+// Blow out candles
 function blowOutCandles() {
     const allFlames = document.querySelectorAll('.flame');
     
     if (allFlames.length === 0) {
-        micMessage.textContent = 'Aucune bougie à souffler!';
+        micMessage.textContent = 'No candles to blow out!';
         return;
     }
     
@@ -443,7 +446,7 @@ function blowOutCandles() {
     }, allFlames.length * 150 + 500);
 }
 
-// Effets visuels
+// Visual effects
 function createBlowEffect() {
     const blowEffect = document.createElement('div');
     blowEffect.style.cssText = `
@@ -518,7 +521,7 @@ function getUserName() {
     return userName;
 }
 
-// Styles d'animation supplémentaires
+// Additional animation styles
 const additionalStyles = document.createElement('style');
 additionalStyles.textContent = `
     @keyframes blowWave {

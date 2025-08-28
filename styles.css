@@ -14,7 +14,7 @@ body {
     overflow-x: hidden;
 }
 
-/* Styles pour l'authentification */
+/* Authentication styles */
 .auth-modal {
     position: fixed;
     top: 0;
@@ -145,7 +145,7 @@ body {
     }
 }
 
-/* Animation de transition pour cacher l'auth */
+/* Transition animation to hide auth */
 .auth-fade-out {
     animation: authFadeOut 1s ease-in-out forwards;
 }
@@ -646,6 +646,8 @@ button:hover::before {
     border-radius: 15px;
     transition: width 0.1s ease;
     box-shadow: 0 0 10px rgba(107, 207, 127, 0.5);
+    left: 0;
+    top: 0;
 }
 
 #mic-message {
